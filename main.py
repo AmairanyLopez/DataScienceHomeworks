@@ -35,3 +35,17 @@ print('8. What food has the highest amount of sugar? How much is it? The highest
 
 #Return how many items
 print('9. How many milkshakes are in the data set? There are '+str(fini.howmany(Spread, 'Milkshake'))+' Milkshakes.')
+
+#Print average calories per food item cat
+print("10. Provide a table that shows the average calories of different types of foods.")
+print(fini.calFoodtype(Spread))
+
+#Print the highest calorie item per restaurant
+print("11. What's the highest calorie count of the menu items from each restaurant? Present them in a table.")
+Prettytab= fini.maketablepretty(fini.HighestcalItems(Spread), "Restaurant", "Highest Calorie")
+print(Prettytab)
+
+#
+print("12. Which restaurant offers the menu item with the highest calorie count?")
+miniCalorielist = fini.HighestCalorieRestaurant(Spread)
+print("The highest caloric item is a(n) "+str(miniCalorielist[0])+" from "+str(miniCalorielist[1])+" with "+str(miniCalorielist[2])+" calories.")

@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from prettytable import PrettyTable
 xpread = pd.read_excel("Fast-foods.xlsx")
 
 #Function return rows count
@@ -55,5 +56,40 @@ def howmany(spread, item):
     Indez= Values.index(item)
     return [ValueCounts[Indez]]
 
+#Average Calories per food type
+def calFoodtype(spread):
+    Listc = PrettyTable(['Food Type', 'Average Calories'])
+    Values = spread.type.value_counts().index.tolist()
+    for i in Values:
+        separateList = spread['type'] == i
+        SeparateItems = spread[separateList]
+        suma = sum(SeparateItems['calories'])
+        ave= np.round(suma / len(SeparateItems.index),2)
+        Listc.add_row([i,ave])
+    return Listc
+
+#Returns table with highest calorie count item per restaurant [Restaurant , maximum calories ]
+def HighestcalItems(spread):
+    Listc = []
+    Values = spread.restaurant.value_counts().index.tolist()
+    for i in Values:
+        separateList = spread['restaurant'] == i
+        SeparateItems = spread[separateList]
+        suma = np.max(SeparateItems['calories'])
+        Listc.append([i,suma])
+    return Listc
+
+def HighestCalorieRestaurant(spread):
+    calorik = (spread["calories"])
+    indexx = np.argmax(calorik)
+    resta = [spread['item'][indexx], spread['restaurant'][indexx], spread['calories'][indexx]]
+    return resta
+
+#Make 2D tble pretty
+def maketablepretty(table, title1, title2):
+    listk = PrettyTable([title1, title2])
+    for i in table:
+        listk.add_row([i[0],i[1]])
+    return listk
 
 
